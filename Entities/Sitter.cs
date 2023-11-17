@@ -2,6 +2,6 @@
 {
     public class Sitter : User
     {
-        public DateTime? AssignedShift { get; set; }
+        public ICollection<Shift> Shifts { get; set; } = new List<Shift>();
     }
 }
