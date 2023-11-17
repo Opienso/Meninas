@@ -2,7 +2,7 @@
 {
     public class Client : User
     {
-        public List<Cat> Cats { get; set; }
-        public DateTime? AssignedShift { get; set; }
+       // public ICollection<Cat> Cats { get; set; } = new List<Cat>();   //Un obj cliente tiene varios gatos
+        public ICollection<Shift> Shifts { get; set; } = new List<Shift>(); //
     }
 }
