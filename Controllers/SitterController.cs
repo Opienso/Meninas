@@ -7,30 +7,30 @@ namespace Meninas.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ForbidResult : ControllerBase
+    public class SitterController : ControllerBase
     {
         private readonly IShiftService _shiftService;
 
-        public ForbidResult(IShiftService shiftService) { 
-         _shiftService = shiftService;
+        public SitterController(IShiftService shiftService)
+        {
+            _shiftService = shiftService;
         }
-        [HttpPost("TakeShift/{shiftId}")]
-        public IActionResult TakeShift(int shiftId)
+
+        [HttpGet("GetAvailableShifts")]
+        public IActionResult GetAvailableShifts()
         {
             string userType = User.Claims.FirstOrDefault(c => c.Type == "UserType")?.Value;
 
-            if (userType == "Client")
+            if (userType == "Sitter")
             {
-                // cliente toma un turno
-                var result = _shiftService.AssignShiftToClient(shiftId, userId); 
+                var availableShifts = _shiftService.GetAvailableShiftsForSitter(userId);
 
+                return Ok(availableShifts);
             }
             else
             {
-  
                 return Forbid();
             }
         }
-
     }
 }
